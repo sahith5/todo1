@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>courese details</h1>
+    <h3>course</h3>
+    <input type="text" id="course">
+
+    <h3>ammount</h3>
+    <input type="text" id="num">
+
+    <button onclick=add()>add</button>
+    <div id="space">
+    </div>
+    <script>
+    
+        var id=0;
+
+        function add()
+        {
+        var sp=document.querySelector("#space")
+        var course=document.querySelector("#course")
+        var space=document.createElement("div");
+        space.id=""+id;
+        console.log(space.id);    
+        var val=course.value;
+        var val1=num.value;
+        var p= document.createElement("div"); 
+        var p1= document.createElement("div");
+        p.innerHTML="course"+val;
+        p1.innerHTML="ammount"+val1;
+        p.className=""+id;
+        p1.className=""+id;
+       var uptext =   document.createElement("input");
+        var del = document.createElement("button");
+        var text=document.createTextNode("delete");
+        var update = document.createElement("button");
+        var text1=document.createTextNode("update");
+        uptext.className=""+id;
+        del.className=""+id;
+        update.className=""+id;
+        update.appendChild(text1);
+        del.appendChild(text);
+        space.appendChild(p);
+        space.appendChild(p1);
+        space.appendChild(uptext);
+        space.appendChild(del);
+        space.appendChild(update);
+        sp.appendChild(space);
+
+
+        $.post("https://localhost:3000/courses",{
+            "course":val,
+            "amount":val1},function()
+        {
+            console.log(posted);
+        })
+
+        id+=1;
+        
+
+
+        del.addEventListener("click",function()
+        {
+            var i=this.className;
+            console.log(i);
+            var ele=document.getElementById(i)
+            console.log(ele);
+            sp.removeChild(ele);
+
+        })
+
+        update.addEventListener("click",function()
+        {
+            var i=this.className;
+            var ele=document.getElementsByClassName(i);
+
+            console.log(ele);
+
+            ele[1].innerHTML="ammount"+ele[2].value;
+            ele[2].value="";
+        })
+
+
+      
+
+
+    }
+
+    function update(x)
+        {
+            console.log(x);
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>
