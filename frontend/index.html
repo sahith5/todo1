@@ -37,7 +37,7 @@
         var datax={course:course,ammount:ammount};
         $.ajax({
             type:"post",
-            url:"http://localhost:3000/post",
+            url:"https://crudoper.herokuapp.com/post",
             data:datax,
             success:function(datax1,status,xhr)
             {
@@ -73,7 +73,7 @@
         document.querySelector(`#ammount${idx}`).innerHTML=x;
         $.ajax({
             type:"put",
-            url:"http://localhost:3000/put/"+idx,
+            url:"https://crudoper.herokuapp.com/put/"+idx,
             data:{"ammount":x},
             success:function(data)
             {
@@ -91,7 +91,7 @@
         $.ajax(
             {
                 type:"delete",
-                url:"http://localhost:3000/delete/"+idx,
+                url:"https://crudoper.herokuapp.com/delete/"+idx,
                 success:function(data)
                 {
                     console.log("deleted");
@@ -108,7 +108,7 @@
         $('#space').empty();
         $.ajax({
             type:"get",
-            url:"http://localhost:3000/get",
+            url:"https://crudoper.herokuapp.com/get",
             success:function(data)
             {
                 console.log(data);
