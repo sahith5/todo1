@@ -4,104 +4,154 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-    <h1>courese details</h1>
-    <h3>course</h3>
-    <input type="text" id="course">
 
-    <h3>ammount</h3>
-    <input type="text" id="num">
-
-    <button onclick=add()>add</button>
-    <div id="space">
-    </div>
-    <script>
+    <h1>course details</h1>
+    <label for="course">course</label>
+    <br>
+    <input type="text" name="course" id="course">
+    <br>
+    <label for="ammount">ammount</label>
+    <br>
+    <input type="text" name="ammount" id="ammount">
+    <br>
+    <button onclick=add()>
+        add
+    </button>
     
-        var id=0;
-
-        function add()
-        {
-        var sp=document.querySelector("#space")
-        var course=document.querySelector("#course")
-        var space=document.createElement("div");
-        space.id=""+id;
-        console.log(space.id);    
-        var val=course.value;
-        var val1=num.value;
-        var p= document.createElement("div"); 
-        var p1= document.createElement("div");
-        p.innerHTML="course"+val;
-        p1.innerHTML="ammount"+val1;
-        p.className=""+id;
-        p1.className=""+id;
-       var uptext =   document.createElement("input");
-        var del = document.createElement("button");
-        var text=document.createTextNode("delete");
-        var update = document.createElement("button");
-        var text1=document.createTextNode("update");
-        uptext.className=""+id;
-        del.className=""+id;
-        update.className=""+id;
-        update.appendChild(text1);
-        del.appendChild(text);
-        space.appendChild(p);
-        space.appendChild(p1);
-        space.appendChild(uptext);
-        space.appendChild(del);
-        space.appendChild(update);
-        sp.appendChild(space);
-
-
-        $.post("https://localhost:3000/courses",{
-            "course":val,
-            "amount":val1},function()
-        {
-            console.log(posted);
-        })
-
-        id+=1;
+    <div id="space">
         
 
+    </div>
 
-        del.addEventListener("click",function()
-        {
-            var i=this.className;
-            console.log(i);
-            var ele=document.getElementById(i)
-            console.log(ele);
-            sp.removeChild(ele);
+    <script>
 
+
+    function add()
+    {
+        var course=document.querySelector("#course").value;
+        var ammount=document.querySelector("#ammount").value;
+        var datax={course:course,ammount:ammount};
+        $.ajax({
+            type:"post",
+            url:"http://localhost:3000/post",
+            data:datax,
+            success:function(datax1,status,xhr)
+            {
+                console.log(datax1);     
+                var idx=datax1["id"];
+                console.log(idx);
+                var t=`<div id="row${idx}">
+                    course
+                    <div id="course${idx}">
+                    
+                    ${course}
+                    </div>
+                    ammount
+                    <div id="ammount${idx}">
+                    ${ammount}
+                    </div>
+                    <input type="text" id="t${idx}" placeholder="update course">
+
+                    <button onclick=update(${idx})> update</button>
+                    <button onclick=del(${idx})>delete</button>
+
+                </div>`
+
+               $("#space").append(t);            
+            } 
         })
 
-        update.addEventListener("click",function()
-        {
-            var i=this.className;
-            var ele=document.getElementsByClassName(i);
+    }
 
-            console.log(ele);
+    function update(idx)
+    {
+        var x=document.querySelector(`#t${idx}`).value;
+        document.querySelector(`#ammount${idx}`).innerHTML=x;
+        $.ajax({
+            type:"put",
+            url:"http://localhost:3000/put/"+idx,
+            data:{"ammount":x},
+            success:function(data)
+            {
+                console.log("updated");
+                x.value="";
+            }
 
-            ele[1].innerHTML="ammount"+ele[2].value;
-            ele[2].value="";
         })
+    }
 
+    function del(idx)
+    {
+        var x=document.querySelector("#row"+idx);    
+        document.querySelector("#space").removeChild(x);
+        $.ajax(
+            {
+                type:"delete",
+                url:"http://localhost:3000/delete/"+idx,
+                success:function(data)
+                {
+                    console.log("deleted");
+                }
+            }
+        )
 
-      
 
 
     }
 
-    function update(x)
-        {
-            console.log(x);
+    function get()
+    {
+        $('#space').empty();
+        $.ajax({
+            type:"get",
+            url:"http://localhost:3000/get",
+            success:function(data)
+            {
+                console.log(data);
+                for(var i =0;i<data.length;i++)
+                  {  
+                    var t=`<div id="row${data[i].id}">
+                    course
+                    <div id="course${data[i].id}">
+                    
+                    ${data[i].course}
+                    </div>
+                    ammount
+                    <div id="ammount${data[i].id}">
+                    ${data[i].ammount}
+                    </div>
+                    <input type="text" id="t${data[i].id}" placeholder="update course">
+
+                    <button onclick=update(${data[i].id})> update</button>
+                    <button onclick=del(${data[i].id})>delete</button>
+
+                </div>`
+
+               $("#space").append(t); 
+            } 
+                
         }
+        }
+        )
+
+    }
+    get();
+
+
+
 
 
 
 
 
     </script>
+
+
+
+    
 </body>
 </html>
