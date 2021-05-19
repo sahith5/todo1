@@ -10,7 +10,7 @@ mongoose.connect(connectionstring,{},function()
     console.log(" database connected");
 })
 
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({extended : false}));
 app.use(express.json());
 // var idx=0;
 // var users=[]
