@@ -21,15 +21,10 @@
     <button onclick=add()>
         add
     </button>
-    
     <div id="space">
-        
 
     </div>
-
     <script>
-
-
     function add()
     {
         var course=document.querySelector("#course").value;
@@ -37,12 +32,11 @@
         var datax={course:course,ammount:ammount};
         $.ajax({
             type:"post",
-            url:"https://crudoper.herokuapp.com/post",
+            url:"http://localhost:3000/users",
             data:datax,
             success:function(datax1,status,xhr)
             {
-                console.log(datax1);     
-                var idx=datax1["id"];
+                var idx=datax1["_id"];
                 console.log(idx);
                 var t=`<div id="row${idx}">
                     course
@@ -56,78 +50,71 @@
                     </div>
                     <input type="text" id="t${idx}" placeholder="update course">
 
-                    <button onclick=update(${idx})> update</button>
-                    <button onclick=del(${idx})>delete</button>
+                    <button   onclick="update('${idx}')"> update</button>
+                    <button  onclick="del('${element.id}')">delete</button>
 
                 </div>`
 
                $("#space").append(t);            
             } 
         })
-
     }
-
     function update(idx)
     {
+        console.log(idx);
         var x=document.querySelector(`#t${idx}`).value;
         document.querySelector(`#ammount${idx}`).innerHTML=x;
         $.ajax({
             type:"put",
-            url:"https://crudoper.herokuapp.com/put/"+idx,
+            url:"http://localhost:3000/users/"+idx,
             data:{"ammount":x},
             success:function(data)
             {
                 console.log("updated");
                 x.value="";
             }
-
         })
     }
-
     function del(idx)
     {
+        console.log(idx);
         var x=document.querySelector("#row"+idx);    
         document.querySelector("#space").removeChild(x);
         $.ajax(
             {
                 type:"delete",
-                url:"https://crudoper.herokuapp.com/delete/"+idx,
+                url:"http://localhost:3000/users/"+idx,
                 success:function(data)
                 {
                     console.log("deleted");
                 }
             }
         )
-
-
-
     }
-
     function get()
     {
         $('#space').empty();
         $.ajax({
             type:"get",
-            url:"https://crudoper.herokuapp.com/get",
+            url:"http://localhost:3000/users",
             success:function(data)
             {
-                console.log(data);
                 for(var i =0;i<data.length;i++)
                   {  
-                    var t=`<div id="row${data[i].id}">
+                    var t=`<div id="row${data[i]._id}">
                     course
-                    <div id="course${data[i].id}">
+                    <div id="course${data[i]._id}">
                     
                     ${data[i].course}
                     </div>
                     ammount
-                    <div id="ammount${data[i].id}">
+                    <div id="ammount${data[i]._id}">
                     ${data[i].ammount}
                     </div>
-                    <input type="text" id="t${data[i].id}" placeholder="update course">
+                    <input type="text" id="t${data[i]._id}" placeholder="update course">
 
-                    <button onclick=update(${data[i].id})> update</button>
-                    <button onclick=del(${data[i].id})>delete</button>
+                    <button onclick="update('${data[i]._id}')"> update</button>
+                    <button onclick="del('${data[i]._id}')">delete</button>
 
                 </div>`
 
@@ -140,18 +127,6 @@
 
     }
     get();
-
-
-
-
-
-
-
-
-    </script>
-
-
-
-    
+    </script>    
 </body>
 </html>
