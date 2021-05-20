@@ -7,7 +7,6 @@ dbconnect.connect();
 
 // const mongoose=require('mongoose');
 // var password=process.env.password;
-// var connectionstring="mongodb+srv://sahith:sahith2000@cluster0.jivxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 // mongoose.connect(connectionstring,{},function()
 // {
 //     console.log(" database connected");
