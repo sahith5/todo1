@@ -1,14 +1,19 @@
 const express=require('express');
 const app=express();
+const dbconnect=require('./banckend/libs/dbConnectLib.js');
+const config=require('./banckend/config/config.js');
+const user_libs=require('./banckend/libs/user_libs.js');
+dbconnect.connect();
 
-const user_libs=require('./libs/user_libs.js');
-const mongoose=require('mongoose');
-var password=process.env.password;
-var connectionstring="mongodb+srv://sahith:"+"sahith2000"+"@cluster0.jivxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-mongoose.connect(connectionstring,{},function()
-{
-    console.log(" database connected");
-})
+// const mongoose=require('mongoose');
+// var password=process.env.password;
+// var connectionstring="mongodb+srv://sahith:sahith2000@cluster0.jivxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+// mongoose.connect(connectionstring,{},function()
+// {
+//     console.log(" database connected");
+// })
+
+
 
 app.use(express.urlencoded({extended : false}));
 app.use(express.json());
@@ -81,7 +86,7 @@ app.delete("/users/:id",user_libs.delete)
 app.put("/users/:id",user_libs.update);
 
 
-var port=process.env.PORT||3000;
+var port=config.webport;
 
 app.listen(port,function()
 {
