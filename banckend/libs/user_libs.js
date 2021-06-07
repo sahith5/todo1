@@ -8,6 +8,7 @@ exports.get=async(req,res)=>{
 
 exports.post=async(req,res)=>{
     var course=await user_model.create(req.body);
+    console.log(course);
     res.json(course);
 }
 
@@ -18,7 +19,6 @@ exports.delete=async(req,res)=>{
 }
 
 exports.update=async(req,res)=>{
-    console.log(typeof(req.body))
     
     var course=await user_model.updateOne({_id:req.params.id},{$set:{ammount:req.body.ammount}});
     res.json(course);

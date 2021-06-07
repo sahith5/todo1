@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+
+</head>
+<body>
+    
+        <label for="user">user name</label>
+        <br>
+
+        <input type="text" name="user" placeholder="username" id="user">
+        <br>
+        <label for="pass">password</label>
+        <br>
+        <input type="password" name="pass" id="pass" placeholder="enter password">
+        <br>
+        <button onclick="check()">submit</button>
+
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        
+        if not a user <a href="/register">register</a>
+    
+
+    <script>
+    function check()
+    {
+    var user=document.querySelector("#user").value
+    var password=document.querySelector('#pass').value;
+    $.ajax(
+        {
+            type:"post",
+            url:"http://localhost:3000/authen",
+            data:{user:user,password:password},
+            success:function(datax)
+            {
+                if(datax)
+                {
+                 window.location.href="http://localhost:3000/index";   
+                }
+                else
+                {
+                    alert("password is incorrect");
+                }
+
+           }
+        }
+    )
+    }
+    </script>
+
+
+
+
+</body>
+</html>

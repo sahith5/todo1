@@ -24,6 +24,8 @@
     <div id="space">
 
     </div>
+
+
     <script>
     function add()
     {
@@ -32,12 +34,11 @@
         var datax={course:course,ammount:ammount};
         $.ajax({
             type:"post",
-            url:"https://crudoper.herokuapp.com/users",
+            url:"http://localhost:3000/users",
             data:datax,
-            success:function(datax1,status,xhr)
+            success:function(datax)
             {
                 var idx=datax1["_id"];
-                console.log(idx);
                 var t=`<div id="row${idx}">
                     course
                     <div id="course${idx}">
@@ -66,7 +67,7 @@
         document.querySelector(`#ammount${idx}`).innerHTML=x;
         $.ajax({
             type:"put",
-            url:"https://crudoper.herokuapp.com/users/"+idx,
+            url:"http://localhost:3000/users/"+idx,
             data:{"ammount":x},
             success:function(data)
             {
@@ -83,7 +84,7 @@
         $.ajax(
             {
                 type:"delete",
-                url:"https://crudoper.herokuapp.com/users/"+idx,
+                url:"http://localhost:3000/users/"+idx,
                 success:function(data)
                 {
                     console.log("deleted");
@@ -96,7 +97,7 @@
         $('#space').empty();
         $.ajax({
             type:"get",
-            url:"https://crudoper.herokuapp.com/users",
+            url:"http://localhost:3000/users",
             success:function(data)
             {
                 for(var i =0;i<data.length;i++)
