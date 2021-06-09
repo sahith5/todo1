@@ -34,10 +34,12 @@
         var datax={course:course,ammount:ammount};
         $.ajax({
             type:"post",
-            url:"http://localhost:3000/users",
+            url:"https://todo-project2.herokuapp.com/users",
             data:datax,
-            success:function(datax)
+            success:function(datax1)
             {
+
+                console.log("tesse")
                 var idx=datax1["_id"];
                 var t=`<div id="row${idx}">
                     course
@@ -52,7 +54,7 @@
                     <input type="text" id="t${idx}" placeholder="update course">
 
                     <button   onclick="update('${idx}')"> update</button>
-                    <button  onclick="del('${element.id}')">delete</button>
+                    <button  onclick="del('${idx}')">delete</button>
 
                 </div>`
 
@@ -67,7 +69,7 @@
         document.querySelector(`#ammount${idx}`).innerHTML=x;
         $.ajax({
             type:"put",
-            url:"http://localhost:3000/users/"+idx,
+            url:"https://todo-project2.herokuapp.com/users/"+idx,
             data:{"ammount":x},
             success:function(data)
             {
@@ -84,7 +86,7 @@
         $.ajax(
             {
                 type:"delete",
-                url:"http://localhost:3000/users/"+idx,
+                url:"https://todo-project2.herokuapp.com/users/"+idx,
                 success:function(data)
                 {
                     console.log("deleted");
@@ -97,7 +99,7 @@
         $('#space').empty();
         $.ajax({
             type:"get",
-            url:"http://localhost:3000/users",
+            url:"https://todo-project2.herokuapp.com/users",
             success:function(data)
             {
                 for(var i =0;i<data.length;i++)

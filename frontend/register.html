@@ -35,12 +35,12 @@
             $.ajax(
                 {
                     type:"post",
-                    url:"http://localhost:3000/adduser",
+                    url:"https://todo-project2.herokuapp.com/adduser",
                     data:{user:username,password:password},
                     success:function(datax)
                     {
                         console.log(datax);
-                        window.location.href="http://localhost:3000/"
+                        window.location.href="https://todo-project2.herokuapp.com/"
 
                     }
                 }
