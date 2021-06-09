@@ -34,7 +34,7 @@
         var datax={course:course,ammount:ammount};
         $.ajax({
             type:"post",
-            url:"https://todo-project2.herokuapp.com/users",
+            url:"https://crudoper.herokuapp.com/users",
             data:datax,
             success:function(datax1)
             {
@@ -69,7 +69,7 @@
         document.querySelector(`#ammount${idx}`).innerHTML=x;
         $.ajax({
             type:"put",
-            url:"https://todo-project2.herokuapp.com/users/"+idx,
+            url:"https://crudoper.herokuapp.com/users/"+idx,
             data:{"ammount":x},
             success:function(data)
             {
@@ -86,7 +86,7 @@
         $.ajax(
             {
                 type:"delete",
-                url:"https://todo-project2.herokuapp.com/users/"+idx,
+                url:"https://crudoper.herokuapp.com/users/"+idx,
                 success:function(data)
                 {
                     console.log("deleted");
@@ -99,7 +99,7 @@
         $('#space').empty();
         $.ajax({
             type:"get",
-            url:"https://todo-project2.herokuapp.com/users",
+            url:"https://crudoper.herokuapp.com/users",
             success:function(data)
             {
                 for(var i =0;i<data.length;i++)

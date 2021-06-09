@@ -33,13 +33,13 @@
     $.ajax(
         {
             type:"post",
-            url:"https://todo-project2.herokuapp.com/authen",
+            url:"https://crudoper.herokuapp.com/authen",
             data:{user:user,password:password},
             success:function(datax)
             {
                 if(datax)
                 {
-                 window.location.href="https://todo-project2.herokuapp.com/index";   
+                 window.location.href="https://crudoper.herokuapp.com/index";   
                 }
                 else
                 {

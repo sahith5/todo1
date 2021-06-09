@@ -35,12 +35,12 @@
             $.ajax(
                 {
                     type:"post",
-                    url:"https://todo-project2.herokuapp.com/adduser",
+                    url:"https://crudoper.herokuapp.com/adduser",
                     data:{user:username,password:password},
                     success:function(datax)
                     {
                         console.log(datax);
-                        window.location.href="https://todo-project2.herokuapp.com/"
+                        window.location.href="https://crudoper.herokuapp.com/"
 
                     }
                 }
